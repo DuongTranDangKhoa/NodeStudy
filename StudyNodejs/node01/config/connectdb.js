@@ -1,8 +1,5 @@
-const path = require('path');
-require('dotenv').config({
-    override: true,
-    path: path.join(__dirname, 'development.env')
-});
+const express = require('express');
+var router = express.Router();
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -24,3 +21,4 @@ const pool = new Pool({
         client.release();
     }
 })();
+module.exports = pool;

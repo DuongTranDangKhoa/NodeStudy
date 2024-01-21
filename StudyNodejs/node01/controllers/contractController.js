@@ -1,8 +1,16 @@
+const express = require('express');
+var router = express.Router();
 const asyncHandler = require("express-async-handler");
-const Contact = require("../models/contactMode");
-const getContact = asyncHandler (async (req, res) => {
-    const contact = Contact.find();
-    res.status(200).json({message: "Get all contacts" })
+const { getAllAccounts } = require('../models/contactMode');
+
+const getContact = asyncHandler (async (req, res, next) => {
+    try {
+        const accounts = await getAllAccounts();
+        res.status(200).json(accounts);
+    } catch (error) {
+        next(error);
+    }
+   
 });
 const createContact = asyncHandler ( async (req, res) => {
     console.log("The request body is :",  req.body);
